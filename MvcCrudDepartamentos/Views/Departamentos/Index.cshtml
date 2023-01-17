@@ -37,9 +37,18 @@
                 @Html.DisplayFor(modelItem => item.Localidad)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-controller="Departamentos"
+                    asp-action="Edit"
+                    asp-route-iddepartamento="@item.IdDepartamento"
+                    class="btn btn-outline-info">
+                    Editar
+                </a>
+                <a asp-controller="Departamentos"
+                    asp-action="Delete"
+                    asp-route-iddepartamento="@item.IdDepartamento"
+                    class="btn btn-outline-danger">
+                    Delete
+                </a>
             </td>
         </tr>
 }

@@ -37,6 +37,25 @@ namespace MvcCrudDepartamentos.Repositories
             return departamentos;
         }
 
+        public Departamento FindDepartamento(int id)
+        {
+            string sql = "SELECT * FROM DEPT WHERE DEPT_NO=@ID";
+            SqlParameter pamid = new SqlParameter("@ID", id);
+            this.com.Parameters.Add(pamid);
+            this.com.CommandText = sql;
+            this.cn.Open();
+            this.reader = this.com.ExecuteReader();
+            Departamento dept = new Departamento();
+            this.reader.Read();
+            dept.IdDepartamento = int.Parse(this.reader["DEPT_NO"].ToString());
+            dept.Nombre = this.reader["DNOMBRE"].ToString();
+            dept.Localidad = this.reader["LOC"].ToString();
+            this.reader.Close();
+            this.cn.Close();
+            this.com.Parameters.Clear();
+            return dept;
+        }
+
         public void InsertDepartamento(int id, string nombre, string localidad)
         {
             string sql = "INSERT INTO DEPT VALUES (@ID, @NOMBRE, @LOCALIDAD)";

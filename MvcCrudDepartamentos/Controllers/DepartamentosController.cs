@@ -36,5 +36,28 @@ namespace MvcCrudDepartamentos.Controllers
             //ES VOLVER A LA VISTA DONDE ESTAN TODOS LOS DEPARTAMENTOS (Index)
             return RedirectToAction("Index");
         }
+
+        //AL EDITAR, VAMOS A RECIBIR UN ID DEL DEPARTAMENTO
+        //LO QUE HAREMOS SERA BUSCAR EL DEPARTAMENTO POR SU ID
+        //Y LO ENVIAREMOS A LA VISTA PARA MOSTRAR SUS DATOS 
+        //EN LAS CAJAS
+        public IActionResult Edit(int iddepartamento)
+        {
+            Departamento dept = this.repo.FindDepartamento(iddepartamento);
+            return View(dept);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Departamento dept)
+        {
+            this.repo.UpdateDepartamento(dept.IdDepartamento, dept.Nombre, dept.Localidad);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int iddepartamento)
+        {
+            this.repo.DeleteDepartamento(iddepartamento);
+            return RedirectToAction("Index");
+        }
     }
 }
